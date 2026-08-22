@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" dir="ltr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artificial Intelligence — Assignment 2</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-2e8c9a7eefbc9ca73b7446823968be21.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Artificial Intelligence — Assignment 2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="iu-course iu-subpage">
+
+  <header class="iu-page-hero iu-page-hero--assignment">
+    <div class="iu-page-hero__nav">
+      <a class="iu-back-link" href="../index.html">← Course home</a>
+      <span class="iu-page-hero__label">Assignment 2</span>
+    </div>
+
+    <div class="iu-page-hero__main iu-page-hero__main--no-logo">
+      <div>
+        <div class="iu-eyebrow">Artificial Intelligence</div>
+        <h1>Constraint Satisfaction Modeling and Reasoning</h1>
+        <p class="iu-page-hero__subtitle">
+          An individual assignment on CSP formulation, consistency, variable and value
+          ordering, forward checking, and backtracking reasoning.
+        </p>
+
+        <div class="iu-instructor">
+          <strong>Dr. Fayçal Hamdi</strong>
+          <span>Faculty of Computer and Information Systems</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="iu-page-meta-grid">
+      <div class="iu-page-meta-card">
+        <strong>Week 10</strong>
+        <span>Assessment timing</span>
+      </div>
+      <div class="iu-page-meta-card">
+        <strong>CLO4</strong>
+        <span>Assessed outcome</span>
+      </div>
+      <div class="iu-page-meta-card">
+        <strong>5 marks</strong>
+        <span>Individual assignment</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="project-quicknav" aria-label="Assignment navigation">
+    <span class="project-quicknav__label">Assignment guide</span>
+    <a href="#overview">Overview</a>
+    <a href="#scenario">Scenario</a>
+    <a href="#formal-model">CSP model</a>
+    <a href="#mrv">MRV</a>
+    <a href="#forward-checking">Forward checking</a>
+    <a href="#lcv">LCV</a>
+    <a href="#rubric">Rubric</a>
+    <a href="#submission">Submission</a>
+  </nav>
+</div>
+<div class="iu-content-page assignment-page">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Assignment Overview</h2>
+<div class="iu-section-panel">
+<p><strong>Assessment:</strong> Assignment 2<br>
+<strong>Week:</strong> 10<br>
+<strong>Marks:</strong> 5<br>
+<strong>Assessed CLO:</strong> <strong>CLO4</strong></p>
+<blockquote class="blockquote">
+<p><strong>CLO4:</strong> Investigate Constraint Satisfaction Problems (CSPs).</p>
+</blockquote>
+<p>This is an <strong>individual assignment</strong>.</p>
+<p>The assignment emphasizes <strong>CSP modeling and reasoning</strong>, rather than writing a large program.</p>
+<p>You will translate a scheduling problem into a formal CSP, reason about consistency, apply CSP heuristics manually, and analyze the effect of changing a constraint.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Assessment principle
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are expected to demonstrate that you understand <strong>variables, domains, constraints, consistency, backtracking, MRV, degree heuristic, LCV, and forward checking</strong>.</p>
+<p>Answers without reasoning receive limited credit.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="scenario" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Scenario — University Exam Scheduling</h1>
+<div class="iu-section-panel">
+<p>A department must schedule six exams:</p>
+<pre class="text"><code>AI
+Database
+Networks
+Security
+Programming
+Mathematics</code></pre>
+<p>The available timeslots are:</p>
+<pre class="text"><code>S1 = Monday Morning
+S2 = Monday Afternoon
+S3 = Tuesday Morning</code></pre>
+<p>The following conflicts apply:</p>
+<ol type="1">
+<li>AI and Database cannot be scheduled at the same time.</li>
+<li>AI and Networks cannot be scheduled at the same time.</li>
+<li>AI and Security cannot be scheduled at the same time.</li>
+<li>Database and Networks cannot be scheduled at the same time.</li>
+<li>Database and Programming cannot be scheduled at the same time.</li>
+<li>Networks and Security cannot be scheduled at the same time.</li>
+<li>Networks and Mathematics cannot be scheduled at the same time.</li>
+<li>Security and Programming cannot be scheduled at the same time.</li>
+<li>Programming and Mathematics cannot be scheduled at the same time.</li>
+</ol>
+<p>Additional restrictions:</p>
+<ul>
+<li>AI can use only <code>S1</code> or <code>S2</code>.</li>
+<li>Networks can use only <code>S2</code> or <code>S3</code>.</li>
+<li>Mathematics can use only <code>S1</code> or <code>S3</code>.</li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="formal-model" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part I — Formal CSP Model</h1>
+<section id="task-1-define-xdc" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-1-define-xdc">Task 1 — Define <span class="math inline">\((X,D,C)\)</span></h2>
+<p>Represent the scheduling problem as</p>
+<p><span class="math display">\[
+(X,D,C).
+\]</span></p>
+<section id="variables-x" class="level3">
+<h3 class="anchored" data-anchor-id="variables-x">Variables <span class="math inline">\(X\)</span></h3>
+<p>List the six variables.</p>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="domains-d" class="level3">
+<h3 class="anchored" data-anchor-id="domains-d">Domains <span class="math inline">\(D\)</span></h3>
+<p>State the domain of each variable.</p>
+<p>Use the additional restrictions where applicable.</p>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="constraints-c" class="level3">
+<h3 class="anchored" data-anchor-id="constraints-c">Constraints <span class="math inline">\(C\)</span></h3>
+<p>Rewrite all conflict requirements as binary constraints.</p>
+<p>Example:</p>
+<p><span class="math display">\[
+AI \ne Database.
+\]</span></p>
+<p><strong>Your answer:</strong></p>
+</section>
+</section>
+<hr>
+</section>
+<section id="consistency" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part II — Consistency of Partial Assignments</h1>
+<section id="task-2-analyze-partial-assignments" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-2-analyze-partial-assignments">Task 2 — Analyze Partial Assignments</h2>
+<p>For each partial assignment, determine whether it is <strong>consistent</strong> with the CSP.</p>
+<section id="case-a" class="level3">
+<h3 class="anchored" data-anchor-id="case-a">Case A</h3>
+<pre class="text"><code>AI = S1
+Database = S2
+Networks = S3</code></pre>
+<p><strong>Consistent or inconsistent? Why?</strong></p>
+</section>
+<section id="case-b" class="level3">
+<h3 class="anchored" data-anchor-id="case-b">Case B</h3>
+<pre class="text"><code>AI = S2
+Networks = S2</code></pre>
+<p><strong>Consistent or inconsistent? Why?</strong></p>
+</section>
+<section id="case-c" class="level3">
+<h3 class="anchored" data-anchor-id="case-c">Case C</h3>
+<pre class="text"><code>Programming = S1
+Mathematics = S1</code></pre>
+<p><strong>Consistent or inconsistent? Why?</strong></p>
+</section>
+<section id="case-d" class="level3">
+<h3 class="anchored" data-anchor-id="case-d">Case D</h3>
+<pre class="text"><code>AI = S1
+Security = S2
+Programming = S3</code></pre>
+<p><strong>Consistent or inconsistent? Why?</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Partial assignments
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A partial assignment may be consistent even if some variables are still unassigned.</p>
+</div>
+</div>
+</section>
+</section>
+<hr>
+</section>
+<section id="mrv" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part III — MRV and Degree Heuristic</h1>
+<section id="task-3-choose-the-next-variable" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-3-choose-the-next-variable">Task 3 — Choose the Next Variable</h2>
+<p>Suppose no variable has yet been assigned.</p>
+<p>The current domains are:</p>
+<pre class="text"><code>AI          -&gt; {S1, S2}
+Database    -&gt; {S1, S2, S3}
+Networks    -&gt; {S2, S3}
+Security    -&gt; {S1, S2, S3}
+Programming -&gt; {S1, S2, S3}
+Mathematics -&gt; {S1, S3}</code></pre>
+<p>Answer:</p>
+<ol type="1">
+<li>Which variables are tied under <strong>MRV</strong>?</li>
+<li>Why?</li>
+<li>Among the tied variables, use the <strong>degree heuristic</strong> to determine which should be selected first.</li>
+<li>Count only constraints involving other unassigned variables.</li>
+<li>Explain your final choice.</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+</section>
+<hr>
+</section>
+<section id="forward-checking" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part IV — Forward Checking</h1>
+<section id="task-4-propagate-an-assignment" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-4-propagate-an-assignment">Task 4 — Propagate an Assignment</h2>
+<p>Suppose the solver selects</p>
+<pre class="text"><code>AI = S1</code></pre>
+<p>Perform one forward-checking step.</p>
+<p>Then answer:</p>
+<ol type="1">
+<li>From which neighboring variables should <code>S1</code> be removed?</li>
+<li>Which variables are unaffected?</li>
+<li>Does any domain become empty?</li>
+<li>What would an empty domain mean?</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="domains-after-forward-checking" class="level2">
+<h2 class="anchored" data-anchor-id="domains-after-forward-checking">Domains After Forward Checking</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Domain Before</th>
+<th>Domain After Forward Checking</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Database</td>
+<td><span class="math inline">\(\{S1,S2,S3\}\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Networks</td>
+<td><span class="math inline">\(\{S2,S3\}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Security</td>
+<td><span class="math inline">\(\{S1,S2,S3\}\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Programming</td>
+<td><span class="math inline">\(\{S1,S2,S3\}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Mathematics</td>
+<td><span class="math inline">\(\{S1,S3\}\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="lcv" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part V — Least-Constraining Value</h1>
+<section id="task-5-compare-values-using-lcv" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-5-compare-values-using-lcv">Task 5 — Compare Values Using LCV</h2>
+<p>Suppose <code>Database</code> is the next variable to assign and its current domain is:</p>
+<pre class="text"><code>Database -&gt; {S2, S3}</code></pre>
+<p>Assume the current remaining domains are:</p>
+<pre class="text"><code>Networks    -&gt; {S2, S3}
+Programming -&gt; {S1, S2, S3}</code></pre>
+<p><code>Database</code> conflicts with both <code>Networks</code> and <code>Programming</code>.</p>
+<p>For each candidate value, count how many neighbor-domain values would be removed.</p>
+<p>Then answer:</p>
+<ol type="1">
+<li>Which value is preferred by <strong>LCV</strong>?</li>
+<li>If the two values tie, what could the solver do?</li>
+<li>Why does LCV attempt to preserve flexibility for future assignments?</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+</section>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Database Value</th>
+<th>Effect on Networks</th>
+<th>Effect on Programming</th>
+<th style="text-align: right;">Total Eliminations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>S2</code></td>
+<td></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td><code>S3</code></td>
+<td></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="backtracking" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part VI — Backtracking Reasoning</h1>
+<section id="task-6-explain-a-failure" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-6-explain-a-failure">Task 6 — Explain a Failure</h2>
+<p>Suppose a solver reaches:</p>
+<pre class="text"><code>AI = S1
+Database = S2
+Networks = S3
+Security = S2
+Programming = ?
+Mathematics = S1</code></pre>
+<p>The domain of <code>Programming</code> is currently:</p>
+<pre class="text"><code>{S1, S2, S3}</code></pre>
+<p>Use the constraints to determine:</p>
+<ol type="1">
+<li>Which values are forbidden for <code>Programming</code>?</li>
+<li>Which values remain legal?</li>
+<li>Is there a domain wipeout?</li>
+<li>Should the solver continue or backtrack?</li>
+<li>Explain why.</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+</section>
+<hr>
+</section>
+<section id="changed-constraint" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part VII — Changed Constraint</h1>
+<section id="task-7-analyze-a-modified-csp" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-7-analyze-a-modified-csp">Task 7 — Analyze a Modified CSP</h2>
+<p>A new university policy is introduced:</p>
+<blockquote class="blockquote">
+<p>The AI exam must be scheduled only in <code>S2</code>.</p>
+</blockquote>
+<p>So the domain changes from</p>
+<p><span class="math display">\[
+D(AI)=\{S1,S2\}
+\]</span></p>
+<p>to</p>
+<p><span class="math display">\[
+D(AI)=\{S2\}.
+\]</span></p>
+<p>Answer:</p>
+<ol type="1">
+<li>Which part of <span class="math inline">\((X,D,C)\)</span> changed?</li>
+<li>Which variable would MRV select first now?</li>
+<li>After assigning <code>AI = S2</code>, which neighboring domains would be reduced by forward checking?</li>
+<li>Could this restriction make the CSP harder or easier to solve?</li>
+<li>Could a domain restriction ever make a previously solvable CSP unsatisfiable? Explain.</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+</section>
+<hr>
+</section>
+<section id="understanding-check" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part VIII — Individual Understanding Check</h1>
+<div class="iu-section-panel">
+<p>Your instructor may ask one short question about your assignment.</p>
+<p>Possible questions include:</p>
+<ul>
+<li>What is the difference between a variable and a domain?</li>
+<li>Why is a given partial assignment inconsistent?</li>
+<li>Why did MRV choose this variable?</li>
+<li>Why is degree heuristic useful as a tie-breaker?</li>
+<li>What does LCV try to preserve?</li>
+<li>What is a domain wipeout?</li>
+<li>Why does forward checking detect some failures earlier?</li>
+<li>Which part of <span class="math inline">\((X,D,C)\)</span> changed when the AI domain was restricted?</li>
+</ul>
+<p>The purpose is to confirm your individual understanding of the reasoning shown in your submission.</p>
+</div>
+<hr>
+</section>
+<section id="rubric" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Assessment Rubric — 5 Marks</h1>
+<div class="iu-section-panel">
+<p>The rubric below evaluates <strong>CLO4</strong> directly. Marks depend on correct CSP modeling, accurate reasoning, and your ability to explain how constraints and heuristics affect the search process.</p>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>CLO Evidence</th>
+<th style="text-align: right;">Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Correct CSP formulation</td>
+<td>Correctly defines variables, domains, and constraints</td>
+<td style="text-align: right;">1.25</td>
+</tr>
+<tr class="even">
+<td>Consistency reasoning</td>
+<td>Correctly evaluates partial assignments</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="odd">
+<td>MRV and degree heuristic</td>
+<td>Correctly selects and justifies the next variable</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td>Forward checking and LCV</td>
+<td>Correctly propagates domains and reasons about value ordering</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="odd">
+<td>Backtracking/change analysis and individual understanding</td>
+<td>Explains failure, domain wipeout, and effects of modifying the CSP</td>
+<td style="text-align: right;">1.25</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>CLO4</strong></td>
+<td style="text-align: right;"><strong>5.0</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="submission" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Submission Requirements</h1>
+<div class="iu-section-panel">
+<p>Submit <strong>one PDF file</strong>.</p>
+<p>Your submission must:</p>
+<ul>
+<li>answer all tasks;</li>
+<li>use your own explanations;</li>
+<li>show intermediate reasoning;</li>
+<li>use correct CSP terminology;</li>
+<li>clearly distinguish variables, domains, and constraints;</li>
+<li>be readable and professionally organized.</li>
+</ul>
+<p>Suggested filename:</p>
+<pre class="text"><code>Assignment2_StudentID</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Final Reminder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A strong CSP solution does not only state the final answer.</p>
+<p>It shows <strong>how constraints reduce the available choices and why the solver should make particular decisions</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="iu-course">
+  <footer class="iu-footer iu-subpage-footer">
+    <div class="iu-footer__main">
+      <span><strong>Dr. Fayçal Hamdi</strong></span>
+      <span>Artificial Intelligence — Assignment 2</span>
+    </div>
+  </footer>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

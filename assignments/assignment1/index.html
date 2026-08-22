@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" dir="ltr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artificial Intelligence — Assignment 1</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-2e8c9a7eefbc9ca73b7446823968be21.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Artificial Intelligence — Assignment 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="iu-course iu-subpage">
+
+  <header class="iu-page-hero iu-page-hero--assignment">
+    <div class="iu-page-hero__nav">
+      <a class="iu-back-link" href="../index.html">← Course home</a>
+      <span class="iu-page-hero__label">Assignment 1</span>
+    </div>
+
+    <div class="iu-page-hero__main iu-page-hero__main--no-logo">
+      <div>
+        <div class="iu-eyebrow">Artificial Intelligence</div>
+        <h1>Intelligent Agents and Problem Formulation</h1>
+        <p class="iu-page-hero__subtitle">
+          An individual assignment on intelligent agents, task environments,
+          state representation, and formal AI problem formulation.
+        </p>
+
+        <div class="iu-instructor">
+          <strong>Dr. Fayçal Hamdi</strong>
+          <span>Faculty of Computer and Information Systems</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="iu-page-meta-grid">
+      <div class="iu-page-meta-card">
+        <strong>Week 4</strong>
+        <span>Assessment timing</span>
+      </div>
+      <div class="iu-page-meta-card">
+        <strong>CLO1</strong>
+        <span>Assessed outcome</span>
+      </div>
+      <div class="iu-page-meta-card">
+        <strong>5 marks</strong>
+        <span>Individual assignment</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="project-quicknav" aria-label="Assignment navigation">
+    <span class="project-quicknav__label">Assignment guide</span>
+    <a href="#overview">Overview</a>
+    <a href="#scenario">Scenario</a>
+    <a href="#peas">PEAS</a>
+    <a href="#environment">Environment</a>
+    <a href="#agent-type">Agent type</a>
+    <a href="#formulation">Formulation</a>
+    <a href="#rubric">Rubric</a>
+    <a href="#submission">Submission</a>
+  </nav>
+</div>
+<div class="iu-content-page assignment-page">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Assignment Overview</h2>
+<div class="iu-section-panel">
+<p><strong>Assessment:</strong> Assignment 1<br>
+<strong>Week:</strong> 4<br>
+<strong>Marks:</strong> 5<br>
+<strong>Assessed CLO:</strong> <strong>CLO1</strong></p>
+<blockquote class="blockquote">
+<p><strong>CLO1:</strong> Describe the fundamentals of Artificial Intelligence, including intelligent agents, environments, problem formulation, and state-space representations.</p>
+</blockquote>
+<p>This is an <strong>individual assignment</strong>.</p>
+<p>The purpose of this assignment is to assess whether you can analyze an unfamiliar AI scenario and translate it into the formal concepts studied in the first part of the course.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Assessment principle
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This assignment is not mainly about memorizing definitions.</p>
+<p>You are expected to <strong>apply AI concepts to a new scenario, justify your choices, and show that your problem formulation is internally consistent</strong>.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="scenario" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Scenario — Autonomous Campus Delivery Robot</h1>
+<div class="iu-section-panel">
+<p>A university plans to deploy an autonomous robot that delivers small items between campus locations.</p>
+<p>The robot may need to travel between places such as:</p>
+<ul>
+<li>Main Gate;</li>
+<li>Library;</li>
+<li>Computer Science Building;</li>
+<li>Administration;</li>
+<li>Student Center;</li>
+<li>Medical Center.</li>
+</ul>
+<p>The robot can move through pedestrian paths connecting these locations.</p>
+<p>The environment may include:</p>
+<ul>
+<li>students walking through paths;</li>
+<li>temporary blocked paths;</li>
+<li>different travel distances;</li>
+<li>battery limitations;</li>
+<li>uncertain travel time;</li>
+<li>delivery deadlines.</li>
+</ul>
+<p>The robot receives a request containing:</p>
+<ul>
+<li>a pickup location;</li>
+<li>a destination;</li>
+<li>an item to deliver.</li>
+</ul>
+<p>Its objective is to complete the delivery safely and efficiently.</p>
+</div>
+<hr>
+</section>
+<section id="peas" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part I — PEAS Description</h1>
+<section id="task-1-define-the-agent-using-peas" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-1-define-the-agent-using-peas">Task 1 — Define the Agent Using PEAS</h2>
+<p>Construct a PEAS description for the autonomous campus delivery robot.</p>
+<p>Your answer must contain <strong>at least three meaningful items</strong> for each PEAS component.</p>
+<section id="justification" class="level3">
+<h3 class="anchored" data-anchor-id="justification">Justification</h3>
+<p>Choose <strong>two items</strong> from your PEAS table and explain why they are necessary for this agent.</p>
+<p><strong>Your answer:</strong></p>
+</section>
+</section>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>PEAS Component</th>
+<th>Your Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Performance Measure</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Environment</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Actuators</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Sensors</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="environment" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part II — Classify the Task Environment</h1>
+<section id="task-2-environment-properties" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-2-environment-properties">Task 2 — Environment Properties</h2>
+<p>Classify the robot’s task environment according to the dimensions listed in the table.</p>
+<p>For every property, provide both your classification and a short justification based on the scenario.</p>
+</section>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Property</th>
+<th>Your Classification</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observable / Partially observable</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Deterministic / Stochastic</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Episodic / Sequential</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Static / Dynamic</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Discrete / Continuous</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Single-agent / Multi-agent</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Justify each classification
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A one-word classification is not sufficient. Each choice must be justified using information from the scenario.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="agent-type" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part III — Select an Appropriate Agent Type</h1>
+<section id="task-3-agent-architecture" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-3-agent-architecture">Task 3 — Agent Architecture</h2>
+<p>Choose the <strong>most appropriate agent type</strong> from the following:</p>
+<ul>
+<li>simple reflex agent;</li>
+<li>model-based reflex agent;</li>
+<li>goal-based agent;</li>
+<li>utility-based agent;</li>
+<li>learning agent.</li>
+</ul>
+<p>You may argue that a combination is more appropriate, but your reasoning must be clear.</p>
+<p>Answer the following:</p>
+<ol type="1">
+<li>Which agent type would you choose?</li>
+<li>Why is it more appropriate than a simple reflex agent?</li>
+<li>What internal information should the agent maintain?</li>
+<li>How could the agent use goals or utilities?</li>
+<li>Under what condition would learning be useful?</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+</section>
+<hr>
+</section>
+<section id="formulation" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part IV — Formal Problem Formulation</h1>
+<section id="task-4-define-the-search-problem" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-4-define-the-search-problem">Task 4 — Define the Search Problem</h2>
+<p>Assume the campus contains the following locations:</p>
+<pre class="text"><code>Main Gate
+Library
+Computer Science Building
+Administration
+Student Center
+Medical Center</code></pre>
+<p>The robot must deliver an item from:</p>
+<pre class="text"><code>Main Gate</code></pre>
+<p>to:</p>
+<pre class="text"><code>Medical Center</code></pre>
+<p>Formulate the delivery problem using</p>
+<p><span class="math display">\[
+P=(S,A,s_0,T,G,c).
+\]</span></p>
+<section id="state-space-s" class="level3">
+<h3 class="anchored" data-anchor-id="state-space-s">State Space <span class="math inline">\(S\)</span></h3>
+<p>What information should one state contain?</p>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="actions-a" class="level3">
+<h3 class="anchored" data-anchor-id="actions-a">Actions <span class="math inline">\(A\)</span></h3>
+<p>What actions are available to the robot from a state?</p>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="initial-state-s_0" class="level3">
+<h3 class="anchored" data-anchor-id="initial-state-s_0">Initial State <span class="math inline">\(s_0\)</span></h3>
+<p>Define the initial state.</p>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="transition-model-t" class="level3">
+<h3 class="anchored" data-anchor-id="transition-model-t">Transition Model <span class="math inline">\(T\)</span></h3>
+<p>Explain what</p>
+<p><span class="math display">\[
+T(s,a)
+\]</span></p>
+<p>returns.</p>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="goal-test-g" class="level3">
+<h3 class="anchored" data-anchor-id="goal-test-g">Goal Test <span class="math inline">\(G\)</span></h3>
+<p>Define the condition under which the delivery task is completed.</p>
+<p><strong>Your answer:</strong></p>
+</section>
+<section id="step-cost-c" class="level3">
+<h3 class="anchored" data-anchor-id="step-cost-c">Step Cost <span class="math inline">\(c\)</span></h3>
+<p>Choose an appropriate step-cost function.</p>
+<p>Examples may include:</p>
+<ul>
+<li>distance;</li>
+<li>expected travel time;</li>
+<li>battery consumption;</li>
+<li>a weighted combination.</li>
+</ul>
+<p>State your choice and justify it.</p>
+<p><strong>Your answer:</strong></p>
+</section>
+</section>
+<hr>
+</section>
+<section id="state-representation" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part V — State Representation Reasoning</h1>
+<section id="task-5-compare-two-state-representations" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-5-compare-two-state-representations">Task 5 — Compare Two State Representations</h2>
+<p>Consider the following two possible state representations.</p>
+<section id="representation-a" class="level3">
+<h3 class="anchored" data-anchor-id="representation-a">Representation A</h3>
+<pre class="text"><code>current location</code></pre>
+</section>
+<section id="representation-b" class="level3">
+<h3 class="anchored" data-anchor-id="representation-b">Representation B</h3>
+<pre class="text"><code>(current location, battery level, item status)</code></pre>
+<p>Answer:</p>
+<ol type="1">
+<li>Which representation produces the larger state space?</li>
+<li>Why?</li>
+<li>When would Representation A be sufficient?</li>
+<li>When would Representation B be necessary?</li>
+<li>Why should a state contain enough information to determine the consequences of future actions?</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+</section>
+</section>
+<hr>
+</section>
+<section id="changed-scenario" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part VI — Changed Scenario</h1>
+<section id="task-6-predict-the-effect-of-a-change" class="level2 iu-section-panel">
+<h2 class="anchored" data-anchor-id="task-6-predict-the-effect-of-a-change">Task 6 — Predict the Effect of a Change</h2>
+<p>Suppose the following new requirement is added:</p>
+<blockquote class="blockquote">
+<p>The robot must return to a charging station whenever its battery falls below 15%.</p>
+</blockquote>
+<p>Explain how this change may affect:</p>
+<ol type="1">
+<li>the state representation;</li>
+<li>the available actions;</li>
+<li>the goal test;</li>
+<li>the transition model;</li>
+<li>the step-cost function.</li>
+</ol>
+<p><strong>Your answer:</strong></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Keep the change focused
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not redesign the whole system. Focus on <strong>which components of the existing problem formulation must change and why</strong>.</p>
+</div>
+</div>
+</section>
+<hr>
+</section>
+<section id="understanding-check" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Part VII — Individual Understanding Check</h1>
+<div class="iu-section-panel">
+<p>Your instructor may ask one short question about your submitted assignment.</p>
+<p>Possible questions include:</p>
+<ul>
+<li>Why did you classify the environment as partially observable?</li>
+<li>Why is the task sequential rather than episodic?</li>
+<li>Why is a goal-based or utility-based agent appropriate?</li>
+<li>What information belongs in a state?</li>
+<li>What is the difference between the transition model and the step cost?</li>
+<li>Why did the battery constraint change the state representation?</li>
+</ul>
+<p>The purpose is to confirm your individual understanding of the concepts used in your own submission.</p>
+</div>
+<hr>
+</section>
+<section id="rubric" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Assessment Rubric — 5 Marks</h1>
+<div class="iu-section-panel">
+<p>The rubric below evaluates <strong>CLO1</strong> directly. Correct terminology is important, but marks also depend on the quality of your justification and the consistency of your reasoning.</p>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>CLO Evidence</th>
+<th style="text-align: right;">Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PEAS description and justification</td>
+<td>Identifies intelligent-agent components correctly</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="even">
+<td>Environment classification</td>
+<td>Correctly classifies and justifies task-environment properties</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="odd">
+<td>Agent-type selection</td>
+<td>Selects and justifies a suitable intelligent-agent architecture</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td>Formal problem formulation</td>
+<td>Correctly defines <span class="math inline">\(S\)</span>, <span class="math inline">\(A\)</span>, <span class="math inline">\(s_0\)</span>, <span class="math inline">\(T\)</span>, <span class="math inline">\(G\)</span>, and <span class="math inline">\(c\)</span></td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="odd">
+<td>State/change reasoning and individual understanding</td>
+<td>Explains how representation/problem components change under new conditions</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>CLO1</strong></td>
+<td style="text-align: right;"><strong>5.0</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="submission" class="level1 assignment-part-heading">
+<h1 class="assignment-part-heading">Submission Requirements</h1>
+<div class="iu-section-panel">
+<p>Submit <strong>one PDF file</strong>.</p>
+<p>Your submission must:</p>
+<ul>
+<li>answer all tasks;</li>
+<li>use your own explanations;</li>
+<li>include clear justifications;</li>
+<li>use appropriate AI terminology;</li>
+<li>be logically consistent;</li>
+<li>be readable and professionally organized.</li>
+</ul>
+<p>Suggested filename:</p>
+<pre class="text"><code>Assignment1_StudentID</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Final Reminder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Strong answers do not simply identify a concept.</p>
+<p>They explain <strong>why that concept fits the scenario</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="iu-course">
+  <footer class="iu-footer iu-subpage-footer">
+    <div class="iu-footer__main">
+      <span><strong>Dr. Fayçal Hamdi</strong></span>
+      <span>Artificial Intelligence — Assignment 1</span>
+    </div>
+  </footer>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

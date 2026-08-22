@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" dir="ltr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artificial Intelligence — Group Project</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-2e8c9a7eefbc9ca73b7446823968be21.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Artificial Intelligence — Group Project</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="iu-course iu-subpage">
+
+  <header class="iu-page-hero iu-page-hero--project">
+    <div class="iu-page-hero__nav">
+      <a class="iu-back-link" href="../index.html">← Course home</a>
+      <span class="iu-page-hero__label">Group Project</span>
+    </div>
+
+    <div class="iu-page-hero__main iu-page-hero__main--no-logo">
+      <div>
+        <div class="iu-eyebrow">Artificial Intelligence</div>
+        <h1>Smart Campus AI Planning System</h1>
+        <p class="iu-page-hero__subtitle">
+          An integrated project on route planning, search-performance analysis,
+          and constraint satisfaction.
+        </p>
+
+        <div class="iu-instructor">
+          <strong>Dr. Fayçal Hamdi</strong>
+          <span>Faculty of Computer and Information Systems</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="iu-page-meta-grid">
+      <div class="iu-page-meta-card">
+        <strong>3 students</strong>
+        <span>Group size</span>
+      </div>
+      <div class="iu-page-meta-card">
+        <strong>CLO2 · CLO3 · CLO4</strong>
+        <span>Assessed outcomes</span>
+      </div>
+      <div class="iu-page-meta-card">
+        <strong>20 points</strong>
+        <span>Project rubric</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="project-quicknav" aria-label="Project navigation">
+    <span class="project-quicknav__label">Project guide</span>
+    <a href="#overview">Overview</a>
+    <a href="#route-planner">Route planner</a>
+    <a href="#search-performance">Performance</a>
+    <a href="#csp">CSP</a>
+    <a href="#deliverables">Deliverables</a>
+    <a href="#assessment">Assessment</a>
+    <a href="#checklist">Checklist</a>
+  </nav>
+</div>
+<div class="iu-content-page project-page">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Project Overview</h2>
+<div class="iu-section-panel">
+<p>In this group project, you will design and implement a small <strong>Smart Campus AI Planning System</strong>.</p>
+<p>Each group will consist of <strong>3 students</strong>.</p>
+<p>The project focuses on three central course learning outcomes:</p>
+<ul>
+<li><strong>CLO2:</strong> Determine search strategies including blind and heuristic search.</li>
+<li><strong>CLO3:</strong> Illustrate the performance of local, global, and optimal search.</li>
+<li><strong>CLO4:</strong> Investigate Constraint Satisfaction Problems (CSPs).</li>
+</ul>
+<p>The project is worth <strong>20 marks</strong> in total.</p>
+<p>The objective is not simply to produce working Python code. You are expected to demonstrate that you understand:</p>
+<ul>
+<li>how an AI problem is represented;</li>
+<li>why a particular search strategy is appropriate;</li>
+<li>how search strategies differ in performance;</li>
+<li>how a scheduling problem can be represented as a CSP;</li>
+<li>how CSP heuristics and constraint propagation affect search;</li>
+<li>how experimental evidence supports your conclusions.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Core assessment principle
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A correct program is only part of the project.</p>
+<p>Marks are awarded mainly for <strong>algorithmic reasoning, experimental analysis, interpretation, and demonstrated understanding</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="scenario" class="level2">
+<h2 class="anchored" data-anchor-id="scenario">Project Scenario</h2>
+<div class="iu-section-panel">
+<p>A university would like to build an AI-based system that can support two campus-planning tasks:</p>
+<ol type="1">
+<li><p><strong>Route Planning</strong><br>
+Find an effective route between campus locations while considering travel cost.</p></li>
+<li><p><strong>Scheduling and Allocation</strong><br>
+Assign activities, courses, rooms, or events to available resources while satisfying a set of constraints.</p></li>
+</ol>
+<p>Your group will develop both components and evaluate the AI techniques used in each one.</p>
+</div>
+<hr>
+</section>
+<section id="route-planner" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part I — Campus Route Planner</h1>
+<div class="iu-section-panel">
+<section id="goal" class="level2">
+<h2 class="anchored" data-anchor-id="goal">Goal</h2>
+<p>Build a search-based route-planning system for a campus represented as a weighted graph.</p>
+<p>A state represents a campus location, and an edge represents a possible movement between two locations.</p>
+<p>Each edge must have a positive travel cost such as:</p>
+<ul>
+<li>distance;</li>
+<li>travel time;</li>
+<li>congestion cost;</li>
+<li>accessibility cost;</li>
+<li>or another meaningful quantity.</li>
+</ul>
+</section>
+<section id="minimum-graph-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="minimum-graph-requirements">Minimum Graph Requirements</h2>
+<p>Your graph must contain at least:</p>
+<ul>
+<li><strong>10 distinct locations</strong>;</li>
+<li><strong>15 weighted connections</strong>;</li>
+<li>at least <strong>two alternative routes</strong> between important locations;</li>
+<li>at least one case where the shortest path in number of edges is <strong>not</strong> the lowest-cost path.</li>
+</ul>
+<p>Example locations could include:</p>
+<ul>
+<li>Main Gate;</li>
+<li>Library;</li>
+<li>Engineering Building;</li>
+<li>Computer Science Building;</li>
+<li>Student Center;</li>
+<li>Administration;</li>
+<li>Cafeteria;</li>
+<li>Sports Center;</li>
+<li>Medical Center;</li>
+<li>Parking Area.</li>
+</ul>
+<p>You may use fictional campus locations.</p>
+</section>
+<section id="required-search-algorithms-clo2" class="level2">
+<h2 class="anchored" data-anchor-id="required-search-algorithms-clo2">Required Search Algorithms — CLO2</h2>
+<p>You must implement and compare:</p>
+<ol type="1">
+<li><strong>Uniform-Cost Search (UCS)</strong></li>
+<li><strong>A* Search</strong></li>
+</ol>
+<p>Your A* implementation must use a meaningful heuristic <span class="math inline">\(h(n)\)</span>.</p>
+<p>The A* evaluation function is</p>
+<p><span class="math display">\[
+f(n)=g(n)+h(n),
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(g(n)\)</span> is the path cost from the start state to <span class="math inline">\(n\)</span>;</li>
+<li><span class="math inline">\(h(n)\)</span> estimates the remaining cost from <span class="math inline">\(n\)</span> to the goal.</li>
+</ul>
+</section>
+<section id="required-search-evidence" class="level2">
+<h2 class="anchored" data-anchor-id="required-search-evidence">Required Search Evidence</h2>
+<p>For at least one small search instance, your submission must include a <strong>manual or clearly presented search trace</strong> showing items such as:</p>
+<ul>
+<li>expanded state;</li>
+<li>current path cost;</li>
+<li>frontier contents or priorities;</li>
+<li>parent/path update;</li>
+<li>goal detection.</li>
+</ul>
+<p>You must also explain:</p>
+<ul>
+<li>why UCS is an uninformed optimal search strategy;</li>
+<li>why A* is an informed search strategy;</li>
+<li>what information your heuristic uses;</li>
+<li>whether your heuristic is intended to be admissible;</li>
+<li>why UCS and A* may expand different numbers of states.</li>
+</ul>
+</section>
+</div>
+<hr>
+</section>
+<section id="search-performance" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part II — Search Performance Investigation</h1>
+<div class="iu-section-panel">
+<section id="goal-clo3" class="level2">
+<h2 class="anchored" data-anchor-id="goal-clo3">Goal — CLO3</h2>
+<p>Use controlled experiments to analyze the behavior and performance of the route-planning algorithms.</p>
+<p>Do not report only the final path. For each test case, collect appropriate performance measures and use them to explain the behavior of each algorithm.</p>
+</section>
+<section id="required-experiments" class="level2">
+<h2 class="anchored" data-anchor-id="required-experiments">Required Experiments</h2>
+<p>Evaluate at least <strong>three different start-goal pairs</strong>.</p>
+<p>At least one experiment must investigate the effect of the heuristic.</p>
+<p>For example, compare:</p>
+<ul>
+<li>UCS;</li>
+<li>A* with <span class="math inline">\(h(n)=0\)</span>;</li>
+<li>A* with your proposed heuristic.</li>
+</ul>
+<p>You must explain the results.</p>
+<p>Good analysis answers questions such as:</p>
+<ul>
+<li>Which algorithm expanded fewer states?</li>
+<li>Did both algorithms return the same optimal path cost?</li>
+<li>Why did the heuristic change the search order?</li>
+<li>Was the heuristic informative?</li>
+<li>What happened when the heuristic became weaker?</li>
+<li>What is the relationship between solution quality and search effort?</li>
+</ul>
+</section>
+<section id="optional-optimization-extension" class="level2">
+<h2 class="anchored" data-anchor-id="optional-optimization-extension">Optional Optimization Extension</h2>
+<p>Groups that complete the required search analysis early may add a small local-search optimization component.</p>
+<p>Examples include:</p>
+<ul>
+<li>selecting a good order for visiting several campus locations;</li>
+<li>optimizing a simple facility-placement objective;</li>
+<li>comparing hill climbing and random-restart hill climbing.</li>
+</ul>
+<p>This extension is optional and does not replace any required component.</p>
+</section>
+</div>
+<section id="performance-measures" class="level2">
+<h2 class="anchored" data-anchor-id="performance-measures">Performance Measures</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Solution path</td>
+<td>Route returned by the algorithm</td>
+</tr>
+<tr class="even">
+<td>Path cost</td>
+<td>Total cost of the returned route</td>
+</tr>
+<tr class="odd">
+<td>States expanded</td>
+<td>Number of states removed from the frontier and expanded</td>
+</tr>
+<tr class="even">
+<td>Maximum frontier size</td>
+<td>Largest number of pending states</td>
+</tr>
+<tr class="odd">
+<td>Runtime</td>
+<td>Approximate execution time, when meaningful</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Reporting numbers is not sufficient
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A table such as</p>
+<pre class="text"><code>UCS: 18 expanded states
+A*: 11 expanded states</code></pre>
+<p>is not an analysis.</p>
+<p>You must explain <strong>why</strong> the difference occurred.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="csp" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part III — Campus Scheduling CSP</h1>
+<div class="iu-section-panel">
+<section id="goal-clo4" class="level2">
+<h2 class="anchored" data-anchor-id="goal-clo4">Goal — CLO4</h2>
+<p>Design a small campus scheduling or allocation problem and solve it as a <strong>Constraint Satisfaction Problem (CSP)</strong>.</p>
+<p>A CSP is represented as</p>
+<p><span class="math display">\[
+(X,D,C),
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(X\)</span> is the set of variables;</li>
+<li><span class="math inline">\(D\)</span> is the set of domains;</li>
+<li><span class="math inline">\(C\)</span> is the set of constraints.</li>
+</ul>
+</section>
+<section id="possible-scheduling-problems" class="level2">
+<h2 class="anchored" data-anchor-id="possible-scheduling-problems">Possible Scheduling Problems</h2>
+<p>You may model one of the following:</p>
+<ul>
+<li>exam scheduling;</li>
+<li>classroom allocation;</li>
+<li>laboratory scheduling;</li>
+<li>student activity scheduling;</li>
+<li>meeting-room allocation;</li>
+<li>instructor-timeslot assignment.</li>
+</ul>
+</section>
+<section id="minimum-csp-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="minimum-csp-requirements">Minimum CSP Requirements</h2>
+<p>Your CSP must contain at least:</p>
+<ul>
+<li><strong>6 variables</strong>;</li>
+<li>at least <strong>3 possible values</strong> in the main domain;</li>
+<li>at least <strong>8 meaningful constraints</strong>;</li>
+<li>at least one situation where a poor search choice causes unnecessary backtracking.</li>
+</ul>
+<p>Examples of constraints include:</p>
+<ul>
+<li>two courses cannot use the same room at the same time;</li>
+<li>an instructor cannot teach two classes simultaneously;</li>
+<li>a laboratory course must use a laboratory room;</li>
+<li>two exams with common students cannot share a timeslot;</li>
+<li>a particular activity is unavailable during one timeslot.</li>
+</ul>
+</section>
+<section id="required-csp-methods" class="level2">
+<h2 class="anchored" data-anchor-id="required-csp-methods">Required CSP Methods</h2>
+<p>You must implement:</p>
+<ol type="1">
+<li><strong>Backtracking Search</strong></li>
+<li><strong>MRV — Minimum Remaining Values</strong></li>
+<li><strong>Degree Heuristic</strong> as an MRV tie-breaker</li>
+<li><strong>LCV — Least-Constraining Value</strong></li>
+<li><strong>Forward Checking</strong></li>
+</ol>
+<p>Your system should allow you to compare more than one configuration.</p>
+<p>For example:</p>
+<ul>
+<li>plain backtracking;</li>
+<li>backtracking + MRV;</li>
+<li>MRV + degree + LCV;</li>
+<li>MRV + degree + LCV + forward checking.</li>
+</ul>
+</section>
+<section id="required-csp-evidence" class="level2">
+<h2 class="anchored" data-anchor-id="required-csp-evidence">Required CSP Evidence</h2>
+<p>Your report/notebook must clearly identify:</p>
+<section id="variables" class="level3">
+<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<p>Example:</p>
+<p><span class="math display">\[
+X=\{C_1,C_2,C_3,\ldots\}
+\]</span></p>
+</section>
+<section id="domains" class="level3">
+<h3 class="anchored" data-anchor-id="domains">Domains</h3>
+<p>Example:</p>
+<p><span class="math display">\[
+D(C_1)=\{\text{S1},\text{S2},\text{S3}\}
+\]</span></p>
+</section>
+<section id="constraints" class="level3">
+<h3 class="anchored" data-anchor-id="constraints">Constraints</h3>
+<p>State the constraints formally or clearly in natural language.</p>
+<p>You must also include at least one <strong>manual reasoning example</strong> showing:</p>
+<ul>
+<li>current partial assignment;</li>
+<li>remaining domains;</li>
+<li>MRV choice;</li>
+<li>degree tie-breaking when applicable;</li>
+<li>LCV reasoning;</li>
+<li>forward-checking reductions.</li>
+</ul>
+</section>
+</section>
+<section id="csp-performance-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="csp-performance-analysis">CSP Performance Analysis</h2>
+<p>Compare at least two solver configurations. Use the measures listed below and explain why heuristics and forward checking can reduce unnecessary search.</p>
+</section>
+</div>
+<section id="csp-performance-measures" class="level2">
+<h2 class="anchored" data-anchor-id="csp-performance-measures">CSP Performance Measures</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Assignments tried</td>
+<td>Candidate variable-value assignments tested</td>
+</tr>
+<tr class="even">
+<td>Consistency failures</td>
+<td>Assignments rejected by constraints</td>
+</tr>
+<tr class="odd">
+<td>Backtracks</td>
+<td>Number of failed recursive branches</td>
+</tr>
+<tr class="even">
+<td>Domain wipeouts</td>
+<td>Empty domains detected by propagation</td>
+</tr>
+<tr class="odd">
+<td>Maximum search depth</td>
+<td>Deepest partial assignment reached</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="group-organization" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part IV — Group Organization</h1>
+<div class="iu-section-panel">
+<p>Each group contains <strong>3 students</strong>.</p>
+<p>Every student must contribute to the project.</p>
+<p>You may assign primary responsibilities such as:</p>
+<ul>
+<li><strong>Student A:</strong> graph/problem modeling and search implementation;</li>
+<li><strong>Student B:</strong> CSP modeling and solver implementation;</li>
+<li><strong>Student C:</strong> experimental evaluation, visualization, and integration.</li>
+</ul>
+<p>However, these are <strong>primary responsibilities only</strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Shared understanding
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All three students are expected to understand the complete project.</p>
+<p>During the project demonstration, any student may be asked about any major AI concept used in the system.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="deliverables" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part V — Required Deliverables</h1>
+<div class="iu-section-panel">
+<p>Each group must submit the following.</p>
+<section id="jupyter-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="jupyter-notebook">1. Jupyter Notebook</h2>
+<p>The notebook should contain:</p>
+<ul>
+<li>problem definitions;</li>
+<li>code;</li>
+<li>manual predictions;</li>
+<li>algorithm traces;</li>
+<li>experimental results;</li>
+<li>tables or plots;</li>
+<li>interpretation;</li>
+<li>conclusions.</li>
+</ul>
+<p>Suggested filename:</p>
+<pre class="text"><code>AI_Project_GroupXX.ipynb</code></pre>
+</section>
+<section id="short-project-report" class="level2">
+<h2 class="anchored" data-anchor-id="short-project-report">2. Short Project Report</h2>
+<p>Recommended length:</p>
+<p><strong>4–6 pages</strong>, excluding appendix if required.</p>
+<p>The report should include:</p>
+<ol type="1">
+<li>project overview;</li>
+<li>route-planning problem formulation;</li>
+<li>UCS and A* explanation;</li>
+<li>search-performance experiments;</li>
+<li>CSP formulation <span class="math inline">\((X,D,C)\)</span>;</li>
+<li>CSP solving methods;</li>
+<li>CSP experiments;</li>
+<li>results and discussion;</li>
+<li>conclusion;</li>
+<li>contribution statement.</li>
+</ol>
+</section>
+<section id="source-code" class="level2">
+<h2 class="anchored" data-anchor-id="source-code">3. Source Code</h2>
+<p>Submit all files required to run the project.</p>
+<p>The code should be:</p>
+<ul>
+<li>readable;</li>
+<li>properly organized;</li>
+<li>reproducible;</li>
+<li>commented where necessary.</li>
+</ul>
+</section>
+<section id="group-demonstration" class="level2">
+<h2 class="anchored" data-anchor-id="group-demonstration">4. Group Demonstration</h2>
+<p>Each group will demonstrate the working system.</p>
+<p>The demonstration should show:</p>
+<ul>
+<li>at least one route-planning scenario;</li>
+<li>UCS and A* results;</li>
+<li>a performance comparison;</li>
+<li>at least one CSP solution;</li>
+<li>a comparison of CSP solver configurations.</li>
+</ul>
+</section>
+</div>
+<hr>
+</section>
+<section id="understanding-check" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part VI — Live Understanding Check</h1>
+<div class="iu-section-panel">
+<p>During the demonstration, the instructor may change a small part of the problem and ask the group to <strong>predict the effect before running the code</strong>.</p>
+<p>Examples include:</p>
+<section id="search" class="level3">
+<h3 class="anchored" data-anchor-id="search">Search</h3>
+<ul>
+<li>increase one edge cost;</li>
+<li>remove one connection;</li>
+<li>change the start or goal;</li>
+<li>weaken the heuristic;</li>
+<li>set <span class="math inline">\(h(n)=0\)</span>.</li>
+</ul>
+</section>
+<section id="csp-1" class="level3">
+<h3 class="anchored" data-anchor-id="csp-1">CSP</h3>
+<ul>
+<li>remove one timeslot;</li>
+<li>add one conflict constraint;</li>
+<li>restrict one variable’s domain;</li>
+<li>disable MRV;</li>
+<li>disable forward checking.</li>
+</ul>
+<p>Students may be asked:</p>
+<blockquote class="blockquote">
+<p>Which algorithmic behavior do you expect to change, and why?</p>
+</blockquote>
+<p>or:</p>
+<blockquote class="blockquote">
+<p>Predict the next variable selected by MRV before running the solver.</p>
+</blockquote>
+<p>The objective is to evaluate understanding rather than memorized code.</p>
+</section>
+</div>
+<hr>
+</section>
+<section id="assessment" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part VII — Assessment and CLO Mapping</h1>
+<div class="iu-section-panel">
+<p>The project is worth <strong>20 marks</strong>.</p>
+<p>The assessment is organized directly by the Course Learning Outcomes measured by the project. Each rubric below provides explicit evidence for one of the three assessed CLOs.</p>
+</div>
+<section id="clo2-search-strategies-6-marks" class="level2">
+<h2 class="anchored" data-anchor-id="clo2-search-strategies-6-marks">CLO2 — Search Strategies — 6 Marks</h2>
+<p><strong>CLO2:</strong> Determine search strategies including blind and heuristic search.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th style="text-align: right;">Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Correct implementation of UCS and A*</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>Appropriate heuristic design and justification</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="odd">
+<td>Search trace and explanation of algorithm behavior</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Individual understanding during demonstration</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="odd">
+<td><strong>CLO2 Total</strong></td>
+<td style="text-align: right;"><strong>6</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clo3-search-performance-and-optimization-6-marks" class="level2">
+<h2 class="anchored" data-anchor-id="clo3-search-performance-and-optimization-6-marks">CLO3 — Search Performance and Optimization — 6 Marks</h2>
+<p><strong>CLO3:</strong> Illustrate the performance of local, global, and optimal search.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th style="text-align: right;">Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Well-designed comparative experiments</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>Appropriate performance measures</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>Interpretation of differences between algorithms/heuristics</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>Individual understanding during demonstration</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td><strong>CLO3 Total</strong></td>
+<td style="text-align: right;"><strong>6</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clo4-constraint-satisfaction-problems-8-marks" class="level2">
+<h2 class="anchored" data-anchor-id="clo4-constraint-satisfaction-problems-8-marks">CLO4 — Constraint Satisfaction Problems — 8 Marks</h2>
+<p><strong>CLO4:</strong> Investigate Constraint Satisfaction Problems.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th style="text-align: right;">Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Correct CSP formulation: variables, domains, and constraints</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>Correct backtracking implementation</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="odd">
+<td>MRV, degree, LCV, and forward checking</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>Experimental comparison and interpretation</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>Individual understanding during demonstration</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="even">
+<td><strong>CLO4 Total</strong></td>
+<td style="text-align: right;"><strong>8</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="total-project-mark" class="level2">
+<h2 class="anchored" data-anchor-id="total-project-mark">Total Project Mark</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>CLO</th>
+<th style="text-align: right;">Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLO2 — Search Strategies</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td>CLO3 — Search Performance and Optimization</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td>CLO4 — Constraint Satisfaction Problems</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>20</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="strong-projects" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part VIII — What Strong Projects Demonstrate</h1>
+<div class="iu-section-panel">
+<p>A strong project does more than run successfully.</p>
+<p>It demonstrates that students can:</p>
+<ul>
+<li>select an appropriate AI representation;</li>
+<li>implement search algorithms correctly;</li>
+<li>reason about heuristic search;</li>
+<li>measure algorithmic performance;</li>
+<li>explain experimental results;</li>
+<li>formulate a real problem as a CSP;</li>
+<li>use CSP heuristics appropriately;</li>
+<li>identify why backtracking occurs;</li>
+<li>explain the effect of forward checking;</li>
+<li>make predictions before execution;</li>
+<li>defend design decisions during the demonstration.</li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="common-mistakes" class="level1 project-part-heading">
+<h1 class="project-part-heading">Part IX — Common Mistakes to Avoid</h1>
+<div class="iu-section-panel">
+<p>Avoid the following:</p>
+<ul>
+<li>submitting code without explanations;</li>
+<li>comparing algorithms on only one trivial instance;</li>
+<li>reporting runtime only;</li>
+<li>using an A* heuristic without explaining what it represents;</li>
+<li>claiming a heuristic is admissible without justification;</li>
+<li>defining a CSP without clearly identifying <span class="math inline">\(X\)</span>, <span class="math inline">\(D\)</span>, and <span class="math inline">\(C\)</span>;</li>
+<li>using MRV, LCV, or forward checking without explaining their purpose;</li>
+<li>showing results without interpreting them;</li>
+<li>assigning one member all coding work and another member all writing work;</li>
+<li>presenting a system that group members cannot explain.</li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="checklist" class="level1 project-part-heading">
+<h1 class="project-part-heading">Final Project Checklist</h1>
+<div class="iu-section-panel">
+<p>Before submission, verify that your project contains:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">group of exactly 3 students;</label></li>
+<li><label><input type="checkbox">campus graph with at least 10 locations and 15 weighted connections;</label></li>
+<li><label><input type="checkbox">working UCS;</label></li>
+<li><label><input type="checkbox">working A*;</label></li>
+<li><label><input type="checkbox">meaningful A* heuristic;</label></li>
+<li><label><input type="checkbox">at least one manual search trace;</label></li>
+<li><label><input type="checkbox">at least three start-goal experiments;</label></li>
+<li><label><input type="checkbox">search-performance comparison and interpretation;</label></li>
+<li><label><input type="checkbox">CSP with at least 6 variables;</label></li>
+<li><label><input type="checkbox">at least 8 meaningful constraints;</label></li>
+<li><label><input type="checkbox">plain backtracking;</label></li>
+<li><label><input type="checkbox">MRV;</label></li>
+<li><label><input type="checkbox">degree heuristic;</label></li>
+<li><label><input type="checkbox">LCV;</label></li>
+<li><label><input type="checkbox">forward checking;</label></li>
+<li><label><input type="checkbox">CSP performance comparison;</label></li>
+<li><label><input type="checkbox">manual CSP reasoning example;</label></li>
+<li><label><input type="checkbox">complete notebook;</label></li>
+<li><label><input type="checkbox">short report;</label></li>
+<li><label><input type="checkbox">runnable source code;</label></li>
+<li><label><input type="checkbox">contribution statement;</label></li>
+<li><label><input type="checkbox">all group members prepared for the individual understanding check.</label></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Final Reminder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The purpose of the project is not to create the largest system.</p>
+<p>The objective is to create a <strong>small, correct, well-evaluated AI system</strong> and demonstrate clear understanding of the search and constraint-solving techniques used to build it.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="iu-course">
+  <footer class="iu-footer iu-subpage-footer">
+    <div class="iu-footer__main">
+      <span><strong>Dr. Fayçal Hamdi</strong></span>
+      <span>Artificial Intelligence — Group Project</span>
+    </div>
+  </footer>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
